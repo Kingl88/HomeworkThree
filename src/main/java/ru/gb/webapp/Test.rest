@@ -1,0 +1,5 @@
+GET http://localhost:8189/homeworkThree/info
+###
+GET http://localhost:8189/homeworkThree/echo?world=jdksjdlsdjlk
+###
+GET http://localhost:8189/homeworkThree/show_all
