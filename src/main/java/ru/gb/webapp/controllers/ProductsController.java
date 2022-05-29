@@ -37,4 +37,16 @@ public class ProductsController {
         service.addProduct(new Product(id, title, cost));
         return "redirect:/show_all";
     }
+
+    @GetMapping(value = "/costUp/{id}")
+    public String costUpProduct(@PathVariable Long id){
+        service.costUp(id);
+        return "redirect:/show_all";
+    }
+
+    @GetMapping(value = "/costDown/{id}")
+    public String costDownProduct(@PathVariable Long id){
+        service.costDown(id);
+        return "redirect:/show_all";
+    }
 }
