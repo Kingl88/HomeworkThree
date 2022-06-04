@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.gb.webapp.models.Product;
 import ru.gb.webapp.services.ProductService;
 
+import java.sql.SQLException;
+
 @Controller
 public class ProductsController {
 
@@ -18,12 +20,12 @@ public class ProductsController {
     }
 
     @GetMapping(value = "/show_all")
-    public String showAllProducts(Model model){
+    public String showAllProducts(Model model) throws SQLException {
         model.addAttribute("products", service.findAll());
         return "products";
     }
     @GetMapping(value = "/show/{id}")
-    public String showProductById(Model model,@PathVariable Long id){
+    public String showProductById(Model model,@PathVariable Long id) throws SQLException {
         model.addAttribute("product", service.getById(id));
         return "product_info";
     }
@@ -33,20 +35,26 @@ public class ProductsController {
     }
 
     @PostMapping(value = "/create")
-    public String addProduct(@RequestParam Long id, @RequestParam String title, @RequestParam Double cost){
-        service.addProduct(new Product(id, title, cost));
+    public String addProduct(@RequestParam Long id, @RequestParam String title, @RequestParam Double cost) throws SQLException {
+        service.saveOrUpdate(new Product(id, title, cost));
         return "redirect:/show_all";
     }
 
     @GetMapping(value = "/costUp/{id}")
-    public String costUpProduct(@PathVariable Long id){
+    public String costUpProduct(@PathVariable Long id) throws SQLException {
         service.costUp(id);
         return "redirect:/show_all";
     }
 
     @GetMapping(value = "/costDown/{id}")
-    public String costDownProduct(@PathVariable Long id){
+    public String costDownProduct(@PathVariable Long id) throws SQLException {
         service.costDown(id);
+        return "redirect:/show_all";
+    }
+
+    @GetMapping(value = "/deleteProduct/{id}")
+    public String deleteProduct(@PathVariable Long id) throws SQLException {
+        service.deleteById(id);
         return "redirect:/show_all";
     }
 }

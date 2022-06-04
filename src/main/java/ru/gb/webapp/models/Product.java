@@ -1,9 +1,21 @@
 package ru.gb.webapp.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "title")
     private String title;
+    @Column(name = "cost")
     private Double cost;
+
+    public Product() {
+    }
 
     public Product(Long id, String title, Double cost) {
         this.id = id;
