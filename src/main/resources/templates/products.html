@@ -34,6 +34,9 @@
             <td>
                 <a th:href="@{'/costDown/' + ${product.id}}" class="btn btn-primary">-</a>
             </td>
+            <td>
+                <a th:href="@{'/deleteProduct/' + ${product.id}}" class="btn btn-primary">Delete</a>
+            </td>
         </tr>
         </tbody>
     </table>
